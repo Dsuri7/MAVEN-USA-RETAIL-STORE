@@ -12,7 +12,7 @@ This project involves performing a comprehensive analysis of retail sales data u
 - **Store Performance**: Analyzes store performance by profit and quantity sold.
 - **Sales by Age Group**: Groups customers into age ranges and analyzes sales per group.
 - **Most Popular Products by Age**: Identifies top products within specific age groups.
-- **Salary and Card Preferences**: Analyzes customer salary data and card usage.
+
 
 
 ##### Purpose
