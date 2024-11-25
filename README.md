@@ -11,7 +11,7 @@ This project involves performing a comprehensive analysis of retail sales data u
 - **Customers with No Purchases**: Lists customers who have never made a purchase.
 - **Store Performance**: Analyzes store performance by profit and quantity sold.
 - **Sales by Age Group**: Groups customers into age ranges and analyzes sales per group.
-- **Recyclable vs. Non-Recyclable Sales Analysis: Compares product performance across categories based on sales volume and total revenue.
+- **Recyclable vs. Non-Recyclable Sales Analysis**: Compares product performance across categories based on sales volume and total revenue.
 
 
 
