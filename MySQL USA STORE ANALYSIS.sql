@@ -46,7 +46,7 @@ select customers.customer_id, concat(first_name, " ", last_name) as full_name fr
 where customer_id NOT IN(select customer_id from transactions_1997);
 
 
--- 6.Most Returned Products with Quantity of Returns Over 10?
+-- 6.Which products have been returned more than 10 times?
 
 Select products.product_name, sum(returns.quantity) as most_return
 from products join returns on products.product_id = returns.product_id
@@ -56,8 +56,7 @@ order by most_return desc;
 
 -- 7. Total Sales by Customer Age Group (18-30, 31-50, > 51)?
 
-select 
-case
+select case
 when 1997-year(birthdate) between 10 and 30 then "Young"
 when 1997-year(birthdate) between 31 and 50 then "Adult"
 when 1997-year(birthdate) > 50 then "Old" 
@@ -70,7 +69,7 @@ join products on products.product_id = transactions_1997.product_id
 group by Age_group1
 order by sales desc;
 
--- 8. Most popular products among age groups top 5?
+-- 8.. What are the top 5 most popular products among different age groups?
 
 with sales as (Select products.product_name, customers.age_group,
 sum(products.product_retail_price*transactions_1997.quantity) as total_sum,
@@ -80,25 +79,15 @@ join customers on customers.customer_id = transactions_1997.customer_id
 group by products.product_name,customers.age_group order by total_sum desc)
 select* from sales where row_num <=5 order by total_sum desc;
 
- 
--- 9. Top 5 highest salary person product perference?
 
-select products.product_name, concat(first_name,last_name) as full_name, customers.member_card, max(customers.avg_salary) as Max_salary
-from customers
-join transactions_1997 on transactions_1997.customer_id = customers.customer_id 
-join products on products.product_id = transactions_1997.product_id
-group by  products.product_name,Full_name, customers.member_card
-order by max_salary desc
-limit 5;
-
--- 10. Region wise store that has most quanity sold?
+-- 9. Identify the store with the highest quantity sold in each region?
 Select region.region_id,region.sales_region, stores.store_type,sum((transactions_1997.quantity)) as Quantity_sold
 from region join stores on stores.region_id = region.region_id
 join transactions_1997 on transactions_1997.store_id = stores.store_id
 group by region.region_id,region.sales_region, stores.store_type
 order by Quantity_sold desc;
  
--- 11. Analyze sales of recyclable vs. non-recyclable products. Include the quantity sold and revenue generated for each category?
+-- 10. Analyze sales of recyclable vs. non-recyclable products. Include the quantity sold and revenue generated for each category?
  
 Select CASE WHEN 
 products.recyclable = 1 Then 'Recyclable' Else 'Non-Recyclable'
@@ -106,4 +95,5 @@ End as product_category, sum(transactions_1997.quantity) as Total_sold, sum(tran
 from transactions_1997 join products on products.product_id = transactions_1997.product_id
 group by product_category;
  
+
 
