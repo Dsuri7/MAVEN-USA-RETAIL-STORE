@@ -62,15 +62,14 @@ join customers on customers.customer_id = transactions_1997.customer_id
 group by customers.age_group
 order by total_sales desc;
 
--- 8.. What are the top 5 most popular products among different age groups?
+-- 8. What is the total number of customers who made purchases in each region?
 
-with sales as (Select products.product_name, customers.age_group,
-sum(products.product_retail_price*transactions_1997.quantity) as total_sum,
-row_number() over(partition by customers.age_group order by sum(products.product_retail_price*transactions_1997.quantity) desc) as row_num
-from products join transactions_1997 on products.product_id = transactions_1997.product_id
-join customers on customers.customer_id = transactions_1997.customer_id
-group by products.product_name,customers.age_group order by total_sum desc)
-select* from sales where row_num <=5 order by total_sum desc;
+Select region.sales_region, COUNT(DISTINCT transactions_1997.customer_id) as total_customers
+from region
+join stores on region.region_id = stores.region_id
+join transactions_1997 on stores.store_id = transactions_1997.store_id
+group by region.sales_region
+order by total_customers DESC;
 
 
 -- 9. Identify the store with the highest quantity sold in each region?
