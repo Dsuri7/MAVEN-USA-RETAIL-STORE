@@ -56,18 +56,11 @@ order by most_return desc;
 
 -- 7. Total Sales by Customer Age Group (18-30, 31-50, > 51)?
 
-select case
-when 1997-year(birthdate) between 10 and 30 then "Young"
-when 1997-year(birthdate) between 31 and 50 then "Adult"
-when 1997-year(birthdate) > 50 then "Old" 
-else 'unknown'
-end 
-As Age_group1,(sum(products.product_retail_price * transactions_1997.quantity)) as Sales
-from customers
-join transactions_1997 on transactions_1997.customer_id = customers.customer_id
-join products on products.product_id = transactions_1997.product_id
-group by Age_group1
-order by sales desc;
+Select customers.age_group, sum(products.product_retail_price *transactions_1997.quantity) as total_sales
+from products join transactions_1997 on products.product_id = transactions_1997.product_id 
+join customers on customers.customer_id = transactions_1997.customer_id 
+group by customers.age_group
+order by total_sales desc;
 
 -- 8.. What are the top 5 most popular products among different age groups?
 
